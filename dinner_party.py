@@ -3,13 +3,14 @@
 def main():
 	dinner = DinnerParty()
 	people = dinner.parse_file("hw1-inst1.txt")
+	dinner.write_output(people)
 	for person in people:
 		print(person.preference)
 
 class DinnerParty(object):
 	"""docstring for DinnerParty"""
 	def __init__(self):
-		super(DinnerParty, self).__init__()
+		super(DinnerParty, self).__init__()		
 	# one interresting fact for me is that even though
 	# a method only take one param python passes 2 params 
 	# to the function: self AND filename
@@ -25,6 +26,13 @@ class DinnerParty(object):
 			people.append(person)
 		file.close()
 		return people
+	# This is a method used to output the result
+	def write_output(self, table):
+		file = open("hw1-sol1.txt", "wt")
+		for t in table:
+			# write can only takes string not a list
+			file.write(",".join(map(str, t.preference)))
+		file.close()
 
 class Person(object):
 	"""docstring for Person"""
