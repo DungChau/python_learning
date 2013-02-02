@@ -16,13 +16,18 @@ class DinnerParty(object):
 	# to the function: self AND filename
 	def parse_file(self, filename):
 		file = open(filename)
-		index = 0
+		index = 1
 		people = []
+		numberOfGuests = int(file.readline())
 		for line in file:
 			index += 1
-			lyne = line.split()
-			lyne = [int(i) for i in lyne]
-			person = Person(index, lyne)
+			if index <= numberOfGuests/2:
+				gender = True	#Female
+			else:
+				gender = False	# Male
+			likeness = line.split()
+			likeness = [int(i) for i in likeness]
+			person = Person(index, likeness, gender)
 			people.append(person)
 		file.close()
 		return people
@@ -36,10 +41,11 @@ class DinnerParty(object):
 
 class Person(object):
 	"""docstring for Person"""
-	def __init__(self, ID, preference):
+	def __init__(self, ID, preference, gender):
 		super(Person, self).__init__()
 		self.ID = ID
 		self.preference = preference
+		self.gender = gender
 		
 class Table(object):
 	"""docstring for Table"""
