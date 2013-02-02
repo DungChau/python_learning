@@ -1,5 +1,7 @@
 #!/usr/local/bin/python3
 
+import random
+
 def main():
 	dinner = DinnerParty()
 	people = dinner.parse_file("hw1-inst1.txt")
@@ -58,11 +60,26 @@ class Table(object):
 		super(Table, self).__init__()
 		self.numberOfChairs = numberOfChairs
 		self.guests = guests
+
 	def seat():
 		pass
 
 	def generate_state():
-		pass
+		# this method uses local search or hill climbing in AI
+		best_score = self.calculate_score()
+		best_table = list(self.guests)
+		index = random.randint(0, self.numberOfChairs - 1)
+		for person in self.guests:
+			a, b = index, self.guests.index(person)
+			if a != b:
+				self.guests[b], self.guests[a] = self.guests[a], self.guests[b]
+				cur_score = self.calculate_score()
+				if cur_score > best_score:
+					best_score = cur_score
+					self.guests = list(best_table)
+				# swap back to prepare for the next loop
+				self.guests[b], self.guests[a] = self.guests[a], self.guests[b]
+
 
 	def calculate_score(self):
 		# What we gonna do in this method is to traverse half of 
