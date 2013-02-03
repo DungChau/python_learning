@@ -9,7 +9,10 @@ def main():
 	trie.add("new")
 	trie.add("none")
 	trie.add("test")
-	trie.find("none")
+	try:
+		trie.find("net")
+	except AttributeError as e:
+		print(e)
 	print("the size of the trie is: %d" % trie.size_trie())
 
 class Node(object):
