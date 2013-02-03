@@ -6,10 +6,11 @@ import time
 def main():
 	dinner = DinnerParty()
 	people = dinner.parse_file("hw1-inst1.txt")
-	dinner.write_output(people)
 	table = Table(len(people), people)
 	table.seat()
 	print(table.calculate_score())
+	for index, person in enumerate(table.guests):
+		print(person.ID, index)
 
 class DinnerParty(object):
 	"""docstring for DinnerParty"""
@@ -62,7 +63,7 @@ class Table(object):
 		self.guests = guests
 
 	def seat(self):
-		end_time = time.clock() + 10
+		end_time = time.clock() + 20
 		while True:
 			if time.clock() > end_time:
 				break
