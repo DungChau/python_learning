@@ -1,14 +1,14 @@
 #!/usr/local/bin/python3
 
 import random
+import time
 
 def main():
 	dinner = DinnerParty()
 	people = dinner.parse_file("hw1-inst1.txt")
 	dinner.write_output(people)
-	for person in people:
-		print(person.preference)
 	table = Table(len(people), people)
+	table.seat()
 	print(table.calculate_score())
 
 class DinnerParty(object):
@@ -61,24 +61,30 @@ class Table(object):
 		self.numberOfChairs = numberOfChairs
 		self.guests = guests
 
-	def seat():
-		pass
+	def seat(self):
+		end_time = time.clock() + 10
+		while True:
+			if time.clock() > end_time:
+				break
+			else:
+				self.generate_state()
 
-	def generate_state():
+	def generate_state(self):
 		# this method uses local search or hill climbing in AI
 		best_score = self.calculate_score()
-		best_table = list(self.guests)
+		best_table = Table(self.numberOfChairs, self.guests)
+		glist = best_table.guests
 		index = random.randint(0, self.numberOfChairs - 1)
-		for person in self.guests:
-			a, b = index, self.guests.index(person)
+		for person in glist:
+			a, b = index, glist.index(person)
 			if a != b:
-				self.guests[b], self.guests[a] = self.guests[a], self.guests[b]
-				cur_score = self.calculate_score()
+				glist[b], glist[a] = glist[a], glist[b]
+				cur_score = best_table.calculate_score()
 				if cur_score > best_score:
 					best_score = cur_score
-					self.guests = list(best_table)
+					self.guests = list(glist)
 				# swap back to prepare for the next loop
-				self.guests[b], self.guests[a] = self.guests[a], self.guests[b]
+				glist[b], glist[a] = glist[a], glist[b]
 
 
 	def calculate_score(self):
