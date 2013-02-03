@@ -63,12 +63,16 @@ class Table(object):
 		self.guests = guests
 
 	def seat(self):
+		self.initial_state()
 		end_time = time.clock() + 20
 		while True:
 			if time.clock() > end_time:
 				break
 			else:
 				self.generate_state()
+
+	def initial_state(self):
+		random.shuffle(self.guests)
 
 	def generate_state(self):
 		# this method uses local search or hill climbing in AI
