@@ -83,7 +83,7 @@ class Trie(object):
 		curr_node = 0
 		for char in word:
 			if self.nodes[curr_node].next[char] == 0:
-				raise AttributeError("no word found: %s" % word)
+				break
 			else:
 				curr_node = self.nodes[curr_node].next[char]
 		if self.nodes[curr_node].endofword:
