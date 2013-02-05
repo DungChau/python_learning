@@ -7,16 +7,20 @@ def main():
 	# create a trie
 	trie = Trie()
 	word = None
-
+	args = (trie, ) # singleton right now
 	choices = {'a': test_add, 'b': test_find, 'c': test_size,'d':test_exit}
 	while True:
-		char = input("enter a b c d for test: ")
-		if char == 'a' or char == 'b':
-			word = input("enter a word: ")
-		c = choices[char]
 		try:
-			c(trie, word)
-		except Exception:
+			char = get_choice("enter a b c d for test: ")	
+			if char == 'a' or char == 'b':
+				word = input("enter a word: ")
+				args = trie, word
+			c = choices[char]
+			c(*args)
+			args = trie,
+		except TypeError:
+			continue
+		except Exception as e:
 			break
 
 def test_add(aTrie, word):
@@ -28,11 +32,18 @@ def test_find(aTrie,word):
 	except AttributeError as e:
 		print(e)
 
-def test_size(aTrie, word=None):
+def test_size(aTrie):
 	print("the size of the trie is: {0}".format(aTrie.size_trie()))
 
-def test_exit(aTrie,word):
+def test_exit(aTrie):
 	raise Exception
+
+def get_choice(message):
+	choice = input(message)
+	choice.lower()
+	if choice[0] not in ['a', 'b', 'c', 'd']:
+		raise TypeError
+	return choice[0]
 
 class Node(object):
 	"""docstring for Node"""
