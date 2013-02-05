@@ -1,19 +1,38 @@
 #!/usr/local/bin/python3
 
-import re, types
+import sys
 from collections import defaultdict
 
 def main():
 	# create a trie
 	trie = Trie()
-	trie.add("new")
-	trie.add("none")
-	trie.add("test")
+	word = None
+
+	choices = {'a': test_add, 'b': test_find, 'c': test_size,'d':test_exit}
+	while True:
+		char = input("enter a b c d for test: ")
+		if char == 'a' or char == 'b':
+			word = input("enter a word: ")
+		c = choices[char]
+		try:
+			c(trie, word)
+		except Exception:
+			break
+
+def test_add(aTrie, word):
+	aTrie.add(word)
+
+def test_find(aTrie,word):
 	try:
-		trie.find("net")
+		aTrie.find(word)
 	except AttributeError as e:
 		print(e)
-	print("the size of the trie is: %d" % trie.size_trie())
+
+def test_size(aTrie, word=None):
+	print("the size of the trie is: {0}".format(aTrie.size_trie()))
+
+def test_exit(aTrie,word):
+	raise Exception
 
 class Node(object):
 	"""docstring for Node"""
@@ -46,6 +65,7 @@ class Trie(object):
 				curr_node = self.nodes[curr_node].next[char]
 		# mark the end of a word
 		self.nodes[curr_node].endofword = True
+		self.size += 1
 
 	def find(self, word):
 		curr_node = 0
@@ -57,7 +77,7 @@ class Trie(object):
 		print("Word found for: %s" % word);
 
 	def size_trie(self):
-		return len([node for node in self.nodes if node.endofword == True])
-		
+		return self.size
+
 if __name__ == '__main__':
 	main()
