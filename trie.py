@@ -12,7 +12,7 @@ def main():
 	while True:
 		try:
 			char = get_choice("enter a b c d for test: ")	
-			if char == 'a' or char == 'b':
+			if char in ['a', 'b']:
 				word = input("enter a word: ")
 				args = trie, word
 			c = choices[char]
