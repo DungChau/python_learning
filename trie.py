@@ -18,7 +18,8 @@ def main():
 			c = choices[char]
 			c(*args)
 			args = trie,
-		except TypeError:
+		except InputException as i:
+			print(i)
 			continue
 		except Exception as e:
 			break
@@ -42,7 +43,7 @@ def get_choice(message):
 	choice = input(message)
 	choice.lower()
 	if choice[0] not in ['a', 'b', 'c', 'd']:
-		raise TypeError
+		raise InputException
 	return choice[0]
 
 class Node(object):
@@ -92,6 +93,13 @@ class Trie(object):
 
 	def size_trie(self):
 		return self.size
+
+class InputException(Exception):
+	"""docstring for InputException"""
+	def __init__(self):
+		super(InputException, self).__init__()
+	def __str__(self):
+		return "Input char has to be either a , b, c, or d"		
 
 if __name__ == '__main__':
 	main()
