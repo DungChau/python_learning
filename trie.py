@@ -85,7 +85,10 @@ class Trie(object):
 				raise AttributeError("no word found: %s" % word)
 			else:
 				curr_node = self.nodes[curr_node].next[char]
-		print("Word found for: %s" % word);
+		if self.nodes[curr_node].endofword:
+			print("Word found for: %s" % word)
+		else:
+			raise AttributeError("no word found: %s" % word)
 
 	def size_trie(self):
 		return self.size
