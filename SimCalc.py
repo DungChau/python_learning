@@ -58,6 +58,34 @@ class gui(Frame):
 	def click_quit(self,event):
 		self.master.destroy()
 
+# this gets text from entry box and eval it to a result
+class Interpreter(object):
+	"""docstring for Interpreter"""
+	def __init__(self, arg):
+		super(Interpreter, self).__init__()
+		self.arg = arg
+
+# This class represents a literal token aka. a number
+class LiteralToken(object):
+	"""docstring for LiteralToken"""
+	def __init__(self, value):
+		super(LiteralToken, self).__init__()
+		self.value = value
+	def toInt(self):
+		return int(self.value)
+		
+class Exp(object):
+	"""docstring for Exp"""
+	def __init__(self, arg):
+		super(Exp, self).__init__()
+		self.arg = arg
+
+class AddExp(Exp):
+	"""docstring for AddExp"""
+	def __init__(self, arg):
+		super(AddExp, self).__init__()
+		self.arg = arg
+		
 if __name__ == '__main__':
 	win = Tk()
 	app = gui(win)
