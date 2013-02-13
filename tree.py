@@ -11,18 +11,24 @@ class Tree(object):
 		if self.node.key == key:
 			self.node.val = val
 		elif key < self.node.key:
-			self.left = Tree(Node(key, val))
+			if self.left is None:
+				self.left = Tree()
+			self.left.insert(key, val)
 		else:
-			self.right = Tree(Node(key, val))
-	def search(self, subTree, key):
-		if subTree.node is None:
+			if self.right is None:
+				self.right = Tree()
+			self.right.insert(key, val)
+	def search(self, key):
+		if self.node is None:
 			raise KeyError
-		if subTree.node.key == key:
-			return subTree.node.val
-		elif subTree.node.key < key:
-			return self.search(subTree.left, key)
+		if self.node.key == key:
+			return self.node.val
+		elif self.node.key > key:
+			if self.left is not None:
+				return self.left.search(key)
 		else:
-			return self.search(subTree.right, key)
+			if self.right is not None:
+				return self.right.search(key)
 		
 class Node(object):
 	"""docstring for Node"""
@@ -36,7 +42,11 @@ def main():
 	tree.insert("John", 14)
 	tree.insert("Jane", 34)
 	tree.insert("Mike", 56)
-	print(tree.search(tree, "Mike"))
-
+	tree.insert("Xie", 45)
+	tree.insert("Tang", 67)
+	tree.insert("Abel", 43)
+	print(tree.search("Mike"))
+	print(tree.search("Xie"))
+	print(tree.search("Abel"))
 if __name__ == '__main__':
 	main()
