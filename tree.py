@@ -24,13 +24,15 @@ class Tree(object):
 		if self.node is None:
 			raise KeyError
 		if self.node.key == key:
-			return self.node.val
+			return self
 		elif self.node.key > key:
 			if self.left is not None:
 				return self.left.search(key)
 		else:
 			if self.right is not None:
 				return self.right.search(key)
+	def delete(self, key):
+		pass
 		
 class Node(object):
 	"""docstring for Node"""
@@ -45,19 +47,19 @@ class testBinaryTree(unittest.TestCase):
 		self.tree = Tree()
 	def test_insert(self):
 	 	self.tree.insert("John", 14)
-	 	self.assertTrue(self.tree.search("John") == 14)	
+	 	self.assertTrue(self.tree.search("John").node.val == 14)	
 	 	self.tree.insert("Jane", 34)
-	 	self.assertTrue(self.tree.search("Jane") == 34)
+	 	self.assertTrue(self.tree.search("Jane").node.val == 34)
 	 	self.tree.insert("Xie", 45)
-	 	self.assertTrue(self.tree.search("Xie") == 45)
+	 	self.assertTrue(self.tree.search("Xie").node.val == 45)
 	 	self.tree.insert("Jane", 24)
-	 	self.assertTrue(self.tree.search("Jane") == 24)
+	 	self.assertTrue(self.tree.search("Jane").node.val == 24)
 	def test_search(self):
 	 	self.tree.insert("Xie", 45)
 	 	self.tree.insert("Tang", 67)
 	 	self.tree.insert("Abel", 43)
 	 	self.assertTrue(self.tree.search("Tang"), 67)
-	 	self.assertRaises(KeyError, self.tree.search("Amber"), 20)	
+	 	self.assertRaises(KeyError, self.tree.search("Amber"),0)	
 
 if __name__ == '__main__':
 	unittest.main()
