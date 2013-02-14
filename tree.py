@@ -78,6 +78,17 @@ class Tree(object):
 		print((self.node.key, self.node.val))
 		if self.right:
 			self.right.print_tree()
+	def tree_gen(self):
+		stack = []
+		sub = self	
+		while stack or sub:
+			if sub:
+				stack.append(sub)
+				sub = sub.left
+			else:
+				sub = stack.pop()
+				yield sub.node
+				sub = sub.right
 		
 class Node(object):
 	"""docstring for Node"""
