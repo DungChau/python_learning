@@ -72,6 +72,12 @@ class Tree(object):
 		if self.right is not None:
 			count += 1
 		return count
+	def print_tree(self):
+		if self.left:
+			self.left.print_tree()
+		print((self.node.key, self.node.val))
+		if self.right:
+			self.right.print_tree()
 		
 class Node(object):
 	"""docstring for Node"""
