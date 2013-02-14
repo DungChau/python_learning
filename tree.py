@@ -20,19 +20,58 @@ class Tree(object):
 			if self.right is None:
 				self.right = Tree()
 			self.right.insert(key, val)
-	def search(self, key):
+	def search(self, key, parent=None):
 		if self.node is None:
 			raise KeyError
 		if self.node.key == key:
-			return self
+			return self , parent
 		elif self.node.key > key:
 			if self.left is not None:
-				return self.left.search(key)
+				return self.left.search(key, self)
 		else:
 			if self.right is not None:
-				return self.right.search(key)
+				return self.right.search(key, self)
 	def delete(self, key):
-		pass
+		subtree, parent = self.search(key)
+		child_cnt = subtree.children_count()
+		if child_cnt == 0:
+			if parent.left is subtree:
+				parent.left = None
+			else:
+				parent.right = None
+			del subtree
+		elif child_cnt == 1:
+			if subtree.left:
+				temp = subtree.left
+			else:
+				temp = subtree.right
+			if parent:
+				if parent.left is subtree:
+					parent.left = temp
+				elif parent.right is subtree:
+					parent.right = temp
+			del subtree
+		else:
+			parent = subtree
+			succ = subtree.right
+			while succ.left:
+				parent = succ
+				succ = succ.left
+			# swap it to deleted tree
+			subtree.node = succ.node
+			if parent.left is succ:
+				parent.left = None
+			else:
+				parent.right = None
+	def children_count(self):
+		count = 0
+		if node is None:
+			return None
+		if self.left is not None:
+			count += 1
+		if self.right is not None:
+			count += 1
+		return count
 		
 class Node(object):
 	"""docstring for Node"""
@@ -47,18 +86,23 @@ class testBinaryTree(unittest.TestCase):
 		self.tree = Tree()
 	def test_insert(self):
 	 	self.tree.insert("John", 14)
-	 	self.assertTrue(self.tree.search("John").node.val == 14)	
+	 	child, p = self.tree.search("John")
+	 	self.assertTrue(child.node.val == 14)	
 	 	self.tree.insert("Jane", 34)
-	 	self.assertTrue(self.tree.search("Jane").node.val == 34)
+	 	child, p = self.tree.search("Jane")
+	 	self.assertTrue(child.node.val == 34)
 	 	self.tree.insert("Xie", 45)
-	 	self.assertTrue(self.tree.search("Xie").node.val == 45)
+	 	child, p = self.tree.search("Xie")
+	 	self.assertTrue(child.node.val == 45)
 	 	self.tree.insert("Jane", 24)
-	 	self.assertTrue(self.tree.search("Jane").node.val == 24)
-	def test_search(self):
+	 	child, p = self.tree.search("Jane")
+	 	self.assertTrue(child.node.val == 24)
+	def child_search(self):
 	 	self.tree.insert("Xie", 45)
 	 	self.tree.insert("Tang", 67)
 	 	self.tree.insert("Abel", 43)
-	 	self.assertTrue(self.tree.search("Tang"), 67)
+	 	child, p = self.tree.search("Tang")
+	 	self.assertTrue(child.node.val, 67)
 	 	self.assertRaises(KeyError, self.tree.search("Amber"),0)	
 
 if __name__ == '__main__':
