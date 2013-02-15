@@ -33,7 +33,10 @@ class Test_roman(unittest.TestCase):
 		self.assertTrue(int_to_roman(16) == "XVI")
 	def test_twenty(self):
 		self.assertTrue(int_to_roman(20) == "XX")
-
+	def test_nineteen(self):
+		self.assertTrue(int_to_roman(19) == "XIX")
+	def test_2013(self):
+		self.assertTrue(int_to_roman(2013) == "MMXIII")
 if __name__ == '__main__':
 	unittest.main()
 		
