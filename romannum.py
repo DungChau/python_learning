@@ -1,20 +1,14 @@
 import unittest
 
 def int_to_roman(i):
-	roman_map = zip(("M", "D", "C", "L", "X", "IX", "V", "IV", "I")
-		,(1000, 500, 100, 50, 10, 9, 5, 4, 1))
+	roman_map = zip(
+		("M", "CM", "D", "CD","C", "XC", "L", "XL","X", "IX", "V", "IV", "I")
+		,(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1))
 	result = []
 	for roman, num in roman_map:
-		quo = int(i / num)
-		rem = int(i % num)
-		if quo == 0:
-			continue
-		else:
-			for x in range(quo):
-				result.append(roman)
-			for x in range(rem):
-				result.append("I")
-			break
+		while num <= i:
+			i -= num
+			result.append(roman)
 	return "".join(result)
 
 class Test_roman(unittest.TestCase):
@@ -29,12 +23,16 @@ class Test_roman(unittest.TestCase):
 		self.assertTrue(int_to_roman(5) == "V")
 	def test_six(self):
 		self.assertTrue(int_to_roman(6) == "VI")
-	# def test_eight(self):
-	# 	self.assertTrue(int_to_roman(8) == "VIII")
-	# def test_nine(self):
-	# 	self.assertTrue(int_to_roman(9) == "IX")
-	# def test_thirteen(self):
-	# 	self.assertTrue(int_to_roman(13) == "XIII")
+	def test_eight(self):
+		self.assertTrue(int_to_roman(8) == "VIII")
+	def test_nine(self):
+		self.assertTrue(int_to_roman(9) == "IX")
+	def test_thirteen(self):
+		self.assertTrue(int_to_roman(13) == "XIII")
+	def test_sixteen(self):
+		self.assertTrue(int_to_roman(16) == "XVI")
+	def test_twenty(self):
+		self.assertTrue(int_to_roman(20) == "XX")
 
 if __name__ == '__main__':
 	unittest.main()
