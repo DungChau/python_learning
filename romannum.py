@@ -1,9 +1,8 @@
 import unittest
 
-roman_map = zip(("M", "D", "C", "L", "X", "IX", "V", "IV", "I")
-	,(1000, 500, 100, 50, 10, 9, 5, 4, 1))
-
 def int_to_roman(i):
+	roman_map = zip(("M", "D", "C", "L", "X", "IX", "V", "IV", "I")
+		,(1000, 500, 100, 50, 10, 9, 5, 4, 1))
 	result = []
 	for roman, num in roman_map:
 		quo = int(i / num)
@@ -24,8 +23,8 @@ class Test_roman(unittest.TestCase):
 		self.assertTrue(int_to_roman(1) == "I")
 	def test_three(self):
 		self.assertTrue(int_to_roman(3) == "III")
-	# def test_four(self):
-	# 	self.assertTrue(int_to_roman(4) == "IV")
+	def test_four(self):
+		self.assertTrue(int_to_roman(4) == "IV")
 	# def test_five(self):
 	# 	self.assertTrue(int_to_roman(5) == "V")
 	# def test_six(self):
