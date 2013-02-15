@@ -6,13 +6,13 @@ def int_to_roman(i):
 	result = []
 	for roman, num in roman_map:
 		quo = int(i / num)
+		rem = int(i % num)
 		if quo == 0:
 			continue
 		else:
-			result.append(roman)
-			quo -= 1
-			while quo > 0:
-				quo -= 1
+			for x in range(quo):
+				result.append(roman)
+			for x in range(rem):
 				result.append("I")
 			break
 	return "".join(result)
