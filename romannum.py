@@ -25,10 +25,10 @@ class Test_roman(unittest.TestCase):
 		self.assertTrue(int_to_roman(3) == "III")
 	def test_four(self):
 		self.assertTrue(int_to_roman(4) == "IV")
-	# def test_five(self):
-	# 	self.assertTrue(int_to_roman(5) == "V")
-	# def test_six(self):
-	# 	self.assertTrue(int_to_roman(6) == "VI")
+	def test_five(self):
+		self.assertTrue(int_to_roman(5) == "V")
+	def test_six(self):
+		self.assertTrue(int_to_roman(6) == "VI")
 	# def test_eight(self):
 	# 	self.assertTrue(int_to_roman(8) == "VIII")
 	# def test_nine(self):
