@@ -6,7 +6,6 @@ def int_to_roman(i):
 	result = []
 	for roman, num in roman_map:
 		quo = int(i / num)
-		rem = int(i % num)
 		if quo == 0:
 			continue
 		else:
@@ -15,6 +14,7 @@ def int_to_roman(i):
 			while quo > 0:
 				quo -= 1
 				result.append("I")
+			break
 	return "".join(result)
 
 class Test_roman(unittest.TestCase):
