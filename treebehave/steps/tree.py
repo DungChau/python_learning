@@ -1,6 +1,3 @@
-import unittest
-
-
 class Tree(object):
     """docstring for Tree"""
 
@@ -106,36 +103,3 @@ class Node(object):
         super(Node, self).__init__()
         self.key = key
         self.val = val
-
-
-class testBinaryTree(unittest.TestCase):
-    """docstring for testBinaryTree"""
-
-    def setUp(self):
-        self.tree = Tree()
-
-    def test_insert(self):
-        self.tree.insert("John", 14)
-        child, p = self.tree.search("John")
-        self.assertTrue(child.node.val == 14)
-        self.tree.insert("Jane", 34)
-        child, p = self.tree.search("Jane")
-        self.assertTrue(child.node.val == 34)
-        self.tree.insert("Xie", 45)
-        child, p = self.tree.search("Xie")
-        self.assertTrue(child.node.val == 45)
-        self.tree.insert("Jane", 24)
-        child, p = self.tree.search("Jane")
-        self.assertTrue(child.node.val == 24)
-
-    def child_search(self):
-        self.tree.insert("Xie", 45)
-        self.tree.insert("Tang", 67)
-        self.tree.insert("Abel", 43)
-        child, p = self.tree.search("Tang")
-        self.assertTrue(child.node.val, 67)
-        self.assertRaises(KeyError, self.tree.search("Amber"), 0)
-
-
-if __name__ == '__main__':
-    unittest.main()

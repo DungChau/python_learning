@@ -3,6 +3,7 @@
 import random
 import time
 
+
 def main():
     dinner = DinnerParty()
     people = dinner.parse_file("hw1-inst1.txt")
@@ -12,12 +13,15 @@ def main():
     for index, person in enumerate(table.guests):
         print(person.ID, index)
 
+
 class DinnerParty(object):
     """docstring for DinnerParty"""
+
     def __init__(self):
-        super(DinnerParty, self).__init__()     
-    # one interresting fact for me is that even though
-    # a method only take one param python passes 2 params 
+        super(DinnerParty, self).__init__()
+        # one interresting fact for me is that even though
+
+    # a method only take one param python passes 2 params
     # to the function: self AND filename
     def parse_file(self, filename):
         file = open(filename)
@@ -26,8 +30,8 @@ class DinnerParty(object):
         numberOfGuests = int(file.readline())
         for line in file:
             index += 1
-            if index <= numberOfGuests/2:
-                gender = True   #Female
+            if index <= numberOfGuests / 2:
+                gender = True  # Female
             else:
                 gender = False  # Male
             likeness = line.split()
@@ -36,6 +40,7 @@ class DinnerParty(object):
             people.append(person)
         file.close()
         return people
+
     # This is a method used to output the result
     def write_output(self, table):
         file = open("hw1-sol1.txt", "wt")
@@ -44,8 +49,10 @@ class DinnerParty(object):
             file.write(",".join(map(str, t.preference)))
         file.close()
 
+
 class Person(object):
     """docstring for Person"""
+
     def __init__(self, ID, preference, gender):
         super(Person, self).__init__()
         self.ID = ID
@@ -54,9 +61,11 @@ class Person(object):
 
     def preference_func(self, person_id):
         return self.preference[person_id - 1]
-        
+
+
 class Table(object):
     """docstring for Table"""
+
     def __init__(self, numberOfChairs, guests):
         super(Table, self).__init__()
         self.numberOfChairs = numberOfChairs
@@ -97,7 +106,7 @@ class Table(object):
         # the length of the list since the list represents for 
         # a table of 2 sides
         score = 0
-        for i in range(0, int(len(self.guests)/2) - 1):
+        for i in range(0, int(len(self.guests) / 2) - 1):
             # calculate the top row first
             # adjacent different in gender add 1 point
             p1 = self.guests[i]
@@ -107,24 +116,25 @@ class Table(object):
             # h(p1,p2) + h(p2,p1) for adjacent pair of 2 people
             score += p1.preference_func(p2.ID) + p2.preference_func(p2.ID)
             # 2 points for opposite pair in different gender
-            p2 = self.guests[int(len(self.guests)/2) + i]
+            p2 = self.guests[int(len(self.guests) / 2) + i]
             if p1.gender != p2.gender:
                 score += 2
             # h(p1,p2) + h(p2,p1) for opposite pair of 2 people 
             score += p1.preference_func(p2.ID) + p2.preference_func(p2.ID)
             # now for the bottom row
-            p1 = self.guests[int(len(self.guests)/2) + i]
-            p2 = self.guests[int(len(self.guests)/2) + i + 1]
+            p1 = self.guests[int(len(self.guests) / 2) + i]
+            p2 = self.guests[int(len(self.guests) / 2) + i + 1]
             if p1.gender != p2.gender:
                 score += 1
-            score += p1.preference_func(p2.ID) + p2.preference_func(p2.ID)  
-        #last pair in the table
-        p1 = self.guests[int(len(self.guests)/2) - 1]
+            score += p1.preference_func(p2.ID) + p2.preference_func(p2.ID)
+            # last pair in the table
+        p1 = self.guests[int(len(self.guests) / 2) - 1]
         p2 = self.guests[len(self.guests) - 1]
         if p1.gender != p2.gender:
             score += 1
         score += p1.preference_func(p2.ID) + p2.preference_func(p2.ID)
         return score
+
 
 if __name__ == '__main__':
     main()
